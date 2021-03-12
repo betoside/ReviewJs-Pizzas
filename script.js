@@ -107,7 +107,20 @@ c('.pizzaInfo--addButton').addEventListener('click', ()=>{
     closeModal();
 });
 
+c('.menu-openner').addEventListener('click', ()=>{
+    if (cart.length > 0) {
+        c('aside').style.left = 0;
+    } else {
+        
+    }
+});
+c('.menu-closer').addEventListener('click', ()=>{
+    c('aside').style.left = '100vw';
+});
+
 function updateCart() {
+    c('.menu-openner span').innerHTML = cart.length;
+
     if (cart.length > 0) {
         c('aside').classList.add('show');
         c('.cart').innerHTML = '';
@@ -165,8 +178,10 @@ function updateCart() {
 
     } else {
         c('aside').classList.remove('show');
+        c('aside').style.left = '100vw';
     }
     
 }
 
-// aula 13: funcionar os botoes do mais e menos no carrinho
+// aula 13: funcionar os botoes do mais e menos no carrinho calculando subtotal, desconto e total
+// aula 14: cuidar do que precisa fazer no mobile, click no carrinho, clique adicionar ou excluir pizza, click fechar carrinho
