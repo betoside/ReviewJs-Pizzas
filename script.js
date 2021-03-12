@@ -82,7 +82,8 @@ c('.pizzaInfo--addButton').addEventListener('click', ()=>{
     // qual a pizza // console.log('pizza:' + modalKey);
     // qual o tamanho selecionado
     // console.log('tamanho: '+size);
-
+    // quantas pizzas 
+    // console.log('Quantidade: '+modalQt);
     let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key'));
     let identifier = pizzaJson[modalKey].id+'@'+size;
     let key = cart.findIndex((item)=>item.identifier == identifier);
@@ -102,8 +103,23 @@ c('.pizzaInfo--addButton').addEventListener('click', ()=>{
     cart.map((item2)=>{
         console.log(item2);
     })
+    updateCart();
     closeModal();
-    // quantas pizzas 
-    // console.log('Quantidade: '+modalQt);
-
 });
+
+function updateCart() {
+    if (cart.length > 0) {
+        c('aside').classList.add('show');
+
+        for (let i in cart) {
+            let pizzaItem = pizzaJson.find((item)=>{
+                return item.id == cart[i].id;
+            });
+            console.log(pizzaItem);
+        }
+
+    } else {
+        c('aside').classList.remove('show');
+    }
+    
+}
