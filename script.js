@@ -1,4 +1,6 @@
+let cart = [];
 let modalQt = 1;
+let modalKey = 0;
 
 const c = (el) => document.querySelector(el);
 const cs = (el) => document.querySelectorAll(el);
@@ -16,6 +18,7 @@ pizzaJson.map((item, index) => {
         e.preventDefault();
         let key = e.target.closest('.pizza-item').getAttribute('data-key');
         modalQt = 1;
+        modalKey = key;
 
         c('.pizzaBig img').src = pizzaJson[key].img;
         c('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
@@ -68,11 +71,9 @@ function closeModal() {
         c('.pizzaWindowArea').style.display = 'none';
     }, 500);
 }
-
 cs('.pizzaInfo--cancelMobileButton, .pizzaInfo--cancelButton').forEach((item)=>{
     item.addEventListener('click', closeModal);
 });
-
 c('.pizzaInfo--qtmenos').addEventListener('click', ()=>{
     if (modalQt > 1) {
         modalQt--;
@@ -83,10 +84,27 @@ c('.pizzaInfo--qtmais').addEventListener('click', ()=>{
     modalQt++;
     c('.pizzaInfo--qt').innerHTML = modalQt;
 });
-
 cs('.pizzaInfo--size').forEach((size, sizeIndex)=>{
     size.addEventListener('click', (e)=>{
         c('.pizzaInfo--size.selected').classList.remove('selected');
         size.classList.add('selected');
     });
+});
+c('.pizzaInfo--addButton').addEventListener('click', ()=>{
+    // qual a pizza
+    // console.log('pizza:' + modalKey);
+
+    // qual o tamanho selecionado
+    let size = c('.pizzaInfo--size.selected').getAttribute('data-key');
+    // console.log('tamanho: '+size);
+
+    // quantas pizzas 
+    // console.log('Quantidade: '+modalQt);
+
+    cart.push({
+        id: pizzaJson[modalKey].id,
+        size,
+        qt: modalQt
+    });
+
 });
