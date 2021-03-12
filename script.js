@@ -32,18 +32,6 @@ pizzaJson.map((item, index) => {
             size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex];
         });
         // c('.pizzaInfo .pizzaInfo--size').innerHTML = pizzaJson[key].sizes[0];
-        /*
-        <h1>--</h1>
-        <div class="pizzaInfo--desc">--</div>
-        <div class="pizzaInfo--sizearea">
-            <div class="pizzaInfo--sector">Tamanho</div>
-            <div class="pizzaInfo--sizes">
-                <div data-key="0" class="pizzaInfo--size">PEQUENA <span>--</span></div>
-                <div data-key="1" class="pizzaInfo--size">MÉDIO <span>--</span></div>
-                <div data-key="2" class="pizzaInfo--size selected">GRANDE <span>--</span></div>
-            </div>
-        </div>
-        */ 
         // pizzaJson[key].id
         // pizzaJson[key].name
         // pizzaJson[key].img
@@ -91,20 +79,31 @@ cs('.pizzaInfo--size').forEach((size, sizeIndex)=>{
     });
 });
 c('.pizzaInfo--addButton').addEventListener('click', ()=>{
-    // qual a pizza
-    // console.log('pizza:' + modalKey);
-
+    // qual a pizza // console.log('pizza:' + modalKey);
     // qual o tamanho selecionado
-    let size = c('.pizzaInfo--size.selected').getAttribute('data-key');
     // console.log('tamanho: '+size);
 
+    let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key'));
+    let identifier = pizzaJson[modalKey].id+'@'+size;
+    let key = cart.findIndex((item)=>item.identifier == identifier);
+
+    if (key > -1) {
+        cart[key].qt += modalQt;
+    } else {
+        cart.push({
+            identifier,
+            id: pizzaJson[modalKey].id,
+            size,
+            qt: modalQt
+        });
+
+    }
+    console.clear();
+    cart.map((item2)=>{
+        console.log(item2);
+    })
+    closeModal();
     // quantas pizzas 
     // console.log('Quantidade: '+modalQt);
-
-    cart.push({
-        id: pizzaJson[modalKey].id,
-        size,
-        qt: modalQt
-    });
 
 });
